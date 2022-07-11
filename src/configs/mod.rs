@@ -7,6 +7,7 @@ pub mod battery;
 pub mod buf;
 pub mod c;
 pub mod character;
+pub mod charactermod;
 pub mod cmake;
 pub mod cmd_duration;
 pub mod cobol;
@@ -26,6 +27,7 @@ pub mod env_var;
 pub mod erlang;
 pub mod fill;
 pub mod gcloud;
+pub mod git_dirty;
 pub mod git_branch;
 pub mod git_commit;
 pub mod git_metrics;
@@ -36,6 +38,7 @@ pub mod haskell;
 pub mod helm;
 pub mod hg_branch;
 pub mod hostname;
+pub mod hostnamemod;
 pub mod java;
 pub mod jobs;
 pub mod julia;
@@ -104,6 +107,8 @@ pub struct FullConfig<'a> {
     #[serde(borrow)]
     character: character::CharacterConfig<'a>,
     #[serde(borrow)]
+    charactermod: charactermod::CharactermodConfig<'a>,
+    #[serde(borrow)]
     cmake: cmake::CMakeConfig<'a>,
     #[serde(borrow)]
     cmd_duration: cmd_duration::CmdDurationConfig<'a>,
@@ -140,6 +145,8 @@ pub struct FullConfig<'a> {
     #[serde(borrow)]
     gcloud: gcloud::GcloudConfig<'a>,
     #[serde(borrow)]
+    git_dirty: git_dirty::GitDirtyConfig<'a>,
+    #[serde(borrow)]
     git_branch: git_branch::GitBranchConfig<'a>,
     #[serde(borrow)]
     git_commit: git_commit::GitCommitConfig<'a>,
@@ -159,6 +166,8 @@ pub struct FullConfig<'a> {
     hg_branch: hg_branch::HgBranchConfig<'a>,
     #[serde(borrow)]
     hostname: hostname::HostnameConfig<'a>,
+    #[serde(borrow)]
+    hostnamemod: hostnamemod::HostnamemodConfig<'a>,
     #[serde(borrow)]
     java: java::JavaConfig<'a>,
     #[serde(borrow)]
