@@ -5,6 +5,7 @@ mod buf;
 mod bun;
 mod c;
 mod character;
+mod charactermod;
 mod cmake;
 mod cmd_duration;
 mod cobol;
@@ -26,6 +27,7 @@ mod fennel;
 mod fill;
 mod fossil_branch;
 mod gcloud;
+mod git_dirty;
 mod git_branch;
 mod git_commit;
 mod git_metrics;
@@ -39,6 +41,7 @@ mod haxe;
 mod helm;
 mod hg_branch;
 mod hostname;
+mod hostnamemod;
 mod java;
 mod jobs;
 mod julia;
@@ -111,6 +114,7 @@ pub fn handle<'a>(module: &str, context: &'a Context) -> Option<Module<'a>> {
             "bun" => bun::module(context),
             "c" => c::module(context),
             "character" => character::module(context),
+            "charactermod" => charactermod::module(context),
             "cmake" => cmake::module(context),
             "cmd_duration" => cmd_duration::module(context),
             "cobol" => cobol::module(context),
@@ -130,6 +134,7 @@ pub fn handle<'a>(module: &str, context: &'a Context) -> Option<Module<'a>> {
             "fill" => fill::module(context),
             "fossil_branch" => fossil_branch::module(context),
             "gcloud" => gcloud::module(context),
+            "git_dirty" => git_dirty::module(context),
             "git_branch" => git_branch::module(context),
             "git_commit" => git_commit::module(context),
             "git_metrics" => git_metrics::module(context),
@@ -143,6 +148,7 @@ pub fn handle<'a>(module: &str, context: &'a Context) -> Option<Module<'a>> {
             "helm" => helm::module(context),
             "hg_branch" => hg_branch::module(context),
             "hostname" => hostname::module(context),
+            "hostnamemod" => hostnamemod::module(context),
             "java" => java::module(context),
             "jobs" => jobs::module(context),
             "julia" => julia::module(context),
@@ -223,6 +229,7 @@ pub fn description(module: &str) -> &'static str {
         "buf" => "The currently installed version of the Buf CLI",
         "bun" => "The currently installed version of the Bun",
         "c" => "Your C compiler type",
+        "charactermod" => "character Mod",
         "character" => {
             "A character (usually an arrow) beside where the text is entered in your terminal"
         }
@@ -245,6 +252,7 @@ pub fn description(module: &str) -> &'static str {
         "fill" => "Fills the remaining space on the line with a pad string",
         "fossil_branch" => "The active branch of the check-out in your current directory",
         "gcloud" => "The current GCP client configuration",
+        "git_dirty" => "git_dirty",
         "git_branch" => "The active branch of the repo in your current directory",
         "git_commit" => "The active commit (and tag if any) of the repo in your current directory",
         "git_metrics" => "The currently added/deleted lines in your repo",
@@ -258,6 +266,7 @@ pub fn description(module: &str) -> &'static str {
         "helm" => "The currently installed version of Helm",
         "hg_branch" => "The active branch and topic of the repo in your current directory",
         "hostname" => "The system hostname",
+        "hostnamemod" => "The system hostnamemod",
         "java" => "The currently installed version of Java",
         "jobs" => "The current number of jobs running",
         "julia" => "The currently installed version of Julia",
