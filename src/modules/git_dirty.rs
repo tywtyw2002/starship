@@ -1,8 +1,9 @@
-use git2::StatusOptions;
 use super::{Context, Module, ModuleConfig};
 
 use crate::configs::git_dirty::GitDirtyConfig;
 use crate::formatter::StringFormatter;
+
+use std::ffi::OsStr;
 
 /// Creates a module with the Git branch in the current directory
 ///
@@ -11,17 +12,9 @@ pub fn module<'a>(context: &'a Context) -> Option<Module<'a>> {
     let mut module = context.new_module("git_dirty");
     let config = GitDirtyConfig::try_load(module.config);
 
-    let mut opts = StatusOptions::new();
-    opts.include_ignored(false)
-        .include_untracked(true)
-        .recurse_untracked_dirs(false)
-        .exclude_submodules(false);
+    context.get_repo().ok()?;
 
-    let repo = context.get_repo().ok()?;
-    let git_repo = repo.open().ok()?;
-
-    let git_statuses = git_repo.statuses(Some(&mut opts)).ok()?;
-    let is_clean = git_statuses.is_empty();
+    let is_clean = is_repo_clean(context, &config.clone())?;
 
     let parsed = StringFormatter::new(config.format).and_then(|formatter| {
         formatter
@@ -47,4 +40,22 @@ pub fn module<'a>(context: &'a Context) -> Option<Module<'a>> {
     });
 
     Some(module)
+}
+
+fn is_repo_clean(context: &Context, _config: &GitDirtyConfig) -> Option<bool> {
+    log::debug!("New repo status created");
+
+    let args = vec![
+        OsStr::new("-C"),
+        context.current_dir.as_os_str(),
+        OsStr::new("--no-optional-locks"),
+        OsStr::new("status"),
+        OsStr::new("--porcelain"),
+        OsStr::new("--untracked-files=no"),
+    ];
+
+    let status_output = context.exec_cmd("git", &args)?;
+    // let statuses = status_output.stdout.lines();
+
+    Some(status_output.stdout.trim().is_empty())
 }
