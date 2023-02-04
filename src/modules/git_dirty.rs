@@ -1,4 +1,4 @@
-use git2::StatusOptions;
+use git2::{Repository, StatusOptions};
 use super::{Context, Module, ModuleConfig};
 
 use crate::configs::git_dirty::GitDirtyConfig;
@@ -18,7 +18,7 @@ pub fn module<'a>(context: &'a Context) -> Option<Module<'a>> {
         .exclude_submodules(false);
 
     let repo = context.get_repo().ok()?;
-    let git_repo = repo.open().ok()?;
+    let git_repo = Repository::open(repo.path.as_path()).ok()?;
 
     let git_statuses = git_repo.statuses(Some(&mut opts)).ok()?;
     let is_clean = git_statuses.is_empty();
