@@ -81,11 +81,13 @@ jobs:
         with:
           command: build
           args: --release --locked --target ${{ matrix.target }}
-          # use-cross: ${{ matrix.os == 'ubuntu-latest' }}
+          use-cross: ${{ matrix.os == 'ubuntu-latest' }}
 
       - name: Post Build | Prepare artifacts [-nix]
         run: |
-          cp target/${{ matrix.target }}/release/starship ${{ matrix.name }}
+          cd target/${{ matrix.target }}/release
+          tar czvf ../../../${{ matrix.name }} starship
+          cd -
 
       - name: Release | Upload artifacts
         uses: actions/upload-artifact@v3
