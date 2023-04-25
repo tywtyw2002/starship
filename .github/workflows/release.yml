@@ -47,6 +47,10 @@ jobs:
           - target: x86_64-unknown-linux-gnu
             os: ubuntu-latest
             name: starship-x86_64-unknown-linux-gnu.tar.gz
+            
+          - target: aarch64-unknown-linux-gnu
+            os: ubuntu-latest
+            name: starship-aarch64-unknown-linux-gnu.tar.gz
 
           # - target: x86_64-unknown-linux-musl
           #   os: ubuntu-latest
