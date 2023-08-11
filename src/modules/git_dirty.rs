@@ -51,7 +51,8 @@ fn is_repo_clean(context: &Context, _config: &GitDirtyConfig) -> Option<bool> {
         OsStr::new("--no-optional-locks"),
         OsStr::new("status"),
         OsStr::new("--porcelain"),
-        OsStr::new("--untracked-files=no"),
+        OsStr::new("--ignore-submodules=dirty"),
+        // OsStr::new("--untracked-files=no"),
     ];
 
     let status_output = context.exec_cmd("git", &args)?;
